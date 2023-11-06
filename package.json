@@ -1,0 +1,27 @@
+{
+  "name": "restorebackupgame",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DeadCodeGames/RestoreBackup.git"
+  },
+  "author": {
+    "name": "richard kanshen",
+    "email": "richard@kanshen.click",
+    "url": "https://kanshen.click"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeadCodeGames/RestoreBackup/issues"
+  },
+  "homepage": "https://github.com/DeadCodeGames/RestoreBackup#readme",
+  "devDependencies": {
+    "electron": "^27.0.3"
+  }
+}
