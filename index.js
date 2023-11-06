@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 
 const createWindow = () => {
-    const win = new BrowserWindow({ fullscreen: true, frame: false, });
+const win = new BrowserWindow({ fullscreen: true, frame: false, /*webPreferences: {devTools: false}*/});
     win.loadFile('index.html');
 }
 
