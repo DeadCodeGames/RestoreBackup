@@ -12,7 +12,20 @@
             margin: 0;
             flex-wrap: wrap;
             align-content: center;
+            animation: blink 10s ease 0s infinite normal none;
         }
+        
+        @keyframes blink {
+	    0% {
+	    	color: #A0A0A0;
+	    }
+	    50% {
+	    	color: #F0F0F0;
+        }
+	    100% {
+	    	color: #A0A0A0;
+	    }
+    }
     </style>
     under development
 </html>
