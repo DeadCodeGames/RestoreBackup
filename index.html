@@ -1,7 +1,9 @@
 <html>
     <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
         <link rel="stylesheet" href="res/index.css">
         <script src="res/js/bios.js"></script>
+        <script src="res/js/boot.js"></script>
     </head>
     <body>
         <div id="biosscreen" class="screen">
@@ -12,4 +14,6 @@
             <progress id="bootosloader" value="0"></progress>
         </div>
     </body>
+    <script src="./renderer.js"></script>
+    <script src="./index.js"></script>
 </html>

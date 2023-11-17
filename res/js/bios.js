@@ -18,7 +18,8 @@ const biosLines = [
     "VM Ready"
 ];
   
-function loadBios() {
+function loadBios(passBootType) {
+    const startBIOS = new Date();
     const biosscreen = document.getElementById('biosscreen');
     let index = 0;
   
@@ -47,8 +48,10 @@ function loadBios() {
       } else {
         setTimeout(() => {
             biosscreen.style.display = 'none';
+            const endBIOS = new Date();
+            const BIOSTime = endBIOS - startBIOS;
             setTimeout(() => {
-            document.getElementById('bootscreen').style.display = 'block';
+              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); boot(passBootType);
             }, (Math.random() + 0.1) * 1500);
         }, 500);
       }
@@ -56,7 +59,7 @@ function loadBios() {
   
     addLineWithLoader();
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    loadBios();
-  });
+document.addEventListener('DOMContentLoaded', async function () {
+    var bootType = await readBootSetting().then(()=>loadBios(bootType)); 
+});
   
