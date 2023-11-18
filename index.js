@@ -25,12 +25,15 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-function readBootState() {
+function readBootState(callback) {
   fs.readFile(savefile, 'utf8', function (err, data) {
-    return data.charAt(0);
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    callback(null, data.charAt(0));
   });
 }
-
 function writeBootState(state) {
   fs.readFile(savefile, "utf8", function (err, data) {
     const newData = data.replace(data.charAt(0), state)
@@ -44,9 +47,22 @@ function writeBootState(state) {
 }
 
 ipcMain.handle('readBootState', async (event, arg) => {
-  const result = await readBootState(); // your function to read boot state
-  return await result;
-})
+  try {
+    const bootState = await new Promise((resolve, reject) => {
+      readBootState((err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+    return bootState;
+  } catch (error) {
+    console.error('Error reading boot state:', error);
+    return null;
+  }
+});
 
 ipcMain.handle('writeBootState', (event, arg) => {
   writeBootState(arg); // your function to write boot state;

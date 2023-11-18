@@ -1,3 +1,2 @@
-function boot(type) {
-    console.log(type);
+function boot(type, loadtime) {
 };

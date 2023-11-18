@@ -51,7 +51,7 @@ function loadBios(passBootType) {
             const endBIOS = new Date();
             const BIOSTime = endBIOS - startBIOS;
             setTimeout(() => {
-              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); boot(passBootType);
+              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); boot(passBootType, BIOSTime);
             }, (Math.random() + 0.1) * 1500);
         }, 500);
       }
@@ -60,6 +60,7 @@ function loadBios(passBootType) {
     addLineWithLoader();
   }
 document.addEventListener('DOMContentLoaded', async function () {
-    var bootType = await readBootSetting().then(()=>loadBios(bootType)); 
+  var bootType = await readBootSetting();
+  loadBios(bootType); 
 });
   
