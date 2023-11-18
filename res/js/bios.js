@@ -41,7 +41,7 @@ function loadBios(passBootType) {
         biosscreen.insertAdjacentHTML('beforeend', `<div class="bios-line">${line}</div>`);
   
         setTimeout(() => {
-            document.querySelectorAll(".bios-line").forEach((line) => { try { line.removeChild(line.querySelector(".bios-loader")) } catch (error) { console.log(error) } })
+            document.querySelectorAll(".bios-line").forEach((line) => { try { line.removeChild(line.querySelector(".bios-loader")) } catch (error) {} })
           index++;
           addLineWithLoader();
         }, duration * 1000);
