@@ -51,7 +51,7 @@ function loadBios(passBootType) {
             const endBIOS = new Date();
             const BIOSTime = endBIOS - startBIOS;
             setTimeout(() => {
-              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); boot(passBootType, BIOSTime);
+              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); initboot(passBootType, BIOSTime);
             }, (Math.random() + 0.1) * 1500);
         }, 500);
       }
