@@ -40,12 +40,13 @@ div#bootscreen>progress#bootosloader {
     left: 25%;
     -webkit-appearance: none;
     appearance: none;
-    border-radius: 100%;
+    border-radius: 16px;
     height: 16px;
     opacity: 0;
     transition-property: opacity;
     transition-duration: 1.5s;
     transition-timing-function: ease-in-out;
+    overflow: hidden;
 }
 
 progress::-webkit-progress-bar {
@@ -56,6 +57,9 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
 	background-color: #A0A0A0;
 	border-radius: 16px;
+    transition-property: width;
+	transition-duration: 1s;
+	transition-timing-function: ease-in-out;
 }
 
 div#bootscreen.hasosloader>progress#bootosloader {
@@ -94,3 +98,15 @@ div#biosscreen>.bios-loader {
     100% { content: '/'; }
 }
   
+
+string#bootmessage {
+    display: block;
+    position: absolute;
+    top: calc(66.6% + 24px);
+    width: 50%;
+    left: 25%;
+    font-family: system-ui;
+    font-size: 26px;
+    color: white;
+    text-align: center;
+}

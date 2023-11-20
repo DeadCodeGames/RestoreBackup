@@ -18,7 +18,8 @@ const biosLines = [
     "VM Ready"
 ];
   
-function loadBios(passBootType) {
+function loadBios(passBootType, quickBIOS = false) {
+    if (quickBIOS == true) {var quickBIOSTime = 10}
     const startBIOS = new Date();
     const biosscreen = document.getElementById('biosscreen');
     let index = 0;
@@ -34,7 +35,7 @@ function loadBios(passBootType) {
       if (line.includes('[X]')) {
         const timeFrame = line.split('(')[1].split(')')[0];
         const [min, max] = timeFrame.split(' - ').map(Number);
-        duration = (Math.random() * (max - min) + min).toFixed(2);
+        duration = quickBIOSTime / 1000 || ((Math.random() * (max - min) + min).toFixed(2));
         line = line.split("(")[0].replace('[X]', loader.outerHTML);
       }
   
@@ -49,10 +50,14 @@ function loadBios(passBootType) {
         setTimeout(() => {
             biosscreen.style.display = 'none';
             const endBIOS = new Date();
-            const BIOSTime = endBIOS - startBIOS;
+          if (quickBIOS !== true) {
+            var BIOSTime = endBIOS - startBIOS;
+          } else {
+            var BIOSTime = 20000;
+          };
             setTimeout(() => {
-              document.getElementById('bootscreen').style.display = 'block'; console.log(BIOSTime); initboot(passBootType, BIOSTime);
-            }, (Math.random() + 0.1) * 1500);
+              document.getElementById('bootscreen').style.display = 'block'; initboot(passBootType, BIOSTime);
+            }, (BIOSTime / (10 + (1/3))));
         }, 500);
       }
     }

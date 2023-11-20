@@ -41,7 +41,6 @@ function writeBootState(state) {
       if (err) {
         return console.log(err);
       }
-      console.log("The file was updated!");
     });
   })
 }
@@ -66,4 +65,48 @@ ipcMain.handle('readBootState', async (event, arg) => {
 
 ipcMain.handle('writeBootState', (event, arg) => {
   writeBootState(arg); // your function to write boot state;
+})
+
+
+function readPreviousBootState(callback) {
+  fs.readFile(savefile, 'utf8', function (err, data) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    callback(null, data.charAt(1));
+  });
+}
+function writePreviousBootState(state) {
+  fs.readFile(savefile, "utf8", function (err, data) {
+    const newData = data.replace(data.charAt(1), state)
+    fs.writeFile(savefile, newData, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+    });
+  })
+}
+
+
+ipcMain.handle('readPreviousBootState', async (event, arg) => {
+  try {
+    const bootState = await new Promise((resolve, reject) => {
+      readPreviousBootState((err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+    return bootState;
+  } catch (error) {
+    console.error('Error reading boot state:', error);
+    return null;
+  }
+});
+
+ipcMain.handle('writePreviousBootState', (event, arg) => {
+  writePreviousBootState(arg); // your function to write boot state;
 })
