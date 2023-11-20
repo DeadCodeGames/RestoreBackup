@@ -64,7 +64,7 @@ ipcMain.handle('readBootState', async (event, arg) => {
 });
 
 ipcMain.handle('writeBootState', (event, arg) => {
-  writeBootState(arg); // your function to write boot state;
+  writeBootState(arg);
 })
 
 
@@ -108,5 +108,13 @@ ipcMain.handle('readPreviousBootState', async (event, arg) => {
 });
 
 ipcMain.handle('writePreviousBootState', (event, arg) => {
-  writePreviousBootState(arg); // your function to write boot state;
+  writePreviousBootState(arg);
 })
+
+ipcMain.handle('resetLoadFile', (event, arg) => {
+  fs.writeFile(savefile, "00", function (err) {
+    if (err) {
+      return console.log(err);
+    }
+  }
+)})

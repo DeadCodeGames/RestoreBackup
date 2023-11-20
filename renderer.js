@@ -26,3 +26,7 @@ async function readPreviousBootSetting() {
     return null;
   }
 }
+
+function resetLoadFile() {
+  ipcRenderer.invoke('resetLoadFile');
+}

@@ -8,3 +8,8 @@ async function restart() {
         loadBios(bootType, true); 
     }, 1500);
 }
+
+async function reset() {
+    resetLoadFile();
+    window.location.reload();
+}
