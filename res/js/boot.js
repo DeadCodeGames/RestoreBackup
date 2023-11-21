@@ -123,7 +123,10 @@ function normalBOOT(loadtime) {
             OSLoaderString.textContent = "";
             document.querySelector("div#bootscreen").classList.remove("hasosloader");
             setTimeout(() => {
-                document.getElementById("bootscreen").style.display = "none";
+                document.getElementById("bootscreen").classList.remove("current");
+                setTimeout(() => {
+                    document.getElementById("lockscreen").classList.add("current");
+                })
             }, ((loadtime / 10) + 1000));
         } else if (bootprogress + tempprogress >= 100) {
             bootprogress = 100;

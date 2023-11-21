@@ -48,7 +48,7 @@ function loadBios(passBootType, quickBIOS = false) {
         }, duration * 1000);
       } else {
         setTimeout(() => {
-            biosscreen.style.display = 'none';
+            biosscreen.classList.remove("current");
             const endBIOS = new Date();
           if (quickBIOS !== true) {
             var BIOSTime = endBIOS - startBIOS;
@@ -56,7 +56,7 @@ function loadBios(passBootType, quickBIOS = false) {
             var BIOSTime = 20000;
           };
             setTimeout(() => {
-              document.getElementById('bootscreen').style.display = 'block'; initboot(passBootType, BIOSTime);
+              document.getElementById('bootscreen').classList.add("current"); initboot(passBootType, BIOSTime);
             }, (BIOSTime / (10 + (1/3))));
         }, 500);
       }

@@ -12,7 +12,14 @@ body {
 
 div#bootscreen {
     background: black;
+}
+
+div.screen:not(.current) {
     display: none;
+}
+
+div.screen.current {
+    display: block;
 }
 
 div#bootscreen>img#bootoslogo {
@@ -69,7 +76,6 @@ div#bootscreen.hasosloader>progress#bootosloader {
 div#biosscreen {
     font-family: monospace;
     white-space: nowrap;
-    display: block;
     background: black;
     color: white;
     font-size: 32px;
