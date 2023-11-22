@@ -30,3 +30,13 @@ async function readPreviousBootSetting() {
 function resetLoadFile() {
   ipcRenderer.invoke('resetLoadFile');
 }
+
+async function getBaseDate() {
+  try {
+    const baseDate = await ipcRenderer.invoke('readBaseDate');
+    return baseDate;
+  } catch (error) {
+    console.error('Error reading base date from renderer:', error);
+    return null;
+  }
+}

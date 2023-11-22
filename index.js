@@ -112,9 +112,51 @@ ipcMain.handle('writePreviousBootState', (event, arg) => {
 })
 
 ipcMain.handle('resetLoadFile', (event, arg) => {
-  fs.writeFile(savefile, "00", function (err) {
+  fs.writeFile(savefile, "00XXXXXXXX", function (err) {
     if (err) {
       return console.log(err);
     }
   }
-)})
+  )
+});
+
+function readBaseDate(callback) {
+  fs.readFile(savefile, 'utf8', function (err, data) {
+    if (err) {
+      callback(err, null);
+      return;
+    } else if (data.charAt(2) == "X" || data.charAt(3) == "X" || data.charAt(4) == "X" || data.charAt(5) == "X" || data.charAt(6) == "X" || data.charAt(7) == "X" || data.charAt(8) == "X" || data.charAt(9) == "X") {
+      const currentDate = {
+        "base": new Date()
+      };
+      currentDate["date"] = currentDate.base.getDate().toString().padStart(2, '0');
+      currentDate["month"] = (currentDate.base.getMonth() + 1).toString().padStart(2, '0');
+      currentDate["year"] = currentDate.base.getFullYear().toString().padStart(4, '0');
+      const newDate = data.replace(data.charAt(2), currentDate.date.charAt(0)).replace(data.charAt(3), currentDate.date.charAt(1)).replace(data.charAt(4), currentDate.month.charAt(0)).replace(data.charAt(5), currentDate.month.charAt(1)).replace(data.charAt(6), currentDate.year.charAt(0)).replace(data.charAt(7), currentDate.year.charAt(1)).replace(data.charAt(8), currentDate.year.charAt(2)).replace(data.charAt(9), currentDate.year.charAt(3))
+      fs.writeFile(savefile, newDate, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+      });
+    }
+    callback(null, (data.substring(6, 10) + "-" + data.substring(4, 6) + "-" + data.substring(2, 4) + "T00:00:00Z"));
+  });
+}
+
+ipcMain.handle('readBaseDate', async (event, arg) => {
+  try {
+    const baseDate = await new Promise((resolve, reject) => {
+      readBaseDate((err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+    return baseDate;
+  } catch (error) {
+    console.error('Error reading base Date: ', error);
+    return null;
+  }
+});

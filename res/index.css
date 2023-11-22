@@ -116,3 +116,44 @@ string#bootmessage {
     color: white;
     text-align: center;
 }
+
+div#lockscreen.screen {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+div#lockscreen.screen>before {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div#lockscreen.screen>before>timeanddate {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui;
+    position: absolute;
+	font-size: 20px;
+    & locktime {
+        font-size: 80px;
+        font-weight: 500;
+        line-height: 80px;
+    };
+    & lockdate {
+        font-size: 40px;
+        font-weight: 500;
+    };
+    top: 175px
+}

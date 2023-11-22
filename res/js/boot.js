@@ -126,6 +126,7 @@ function normalBOOT(loadtime) {
                 document.getElementById("bootscreen").classList.remove("current");
                 setTimeout(() => {
                     document.getElementById("lockscreen").classList.add("current");
+                    startLockscreenProcesses(loadtime);
                 })
             }, ((loadtime / 10) + 1000));
         } else if (bootprogress + tempprogress >= 100) {

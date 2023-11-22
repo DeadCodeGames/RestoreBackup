@@ -5,6 +5,7 @@
         <script src="res/js/bios.js"></script>
         <script src="res/js/boot.js"></script>
         <script src="res/js/reset.js"></script>
+        <script src="res/js/lock.js"></script>
     </head>
     <body style="background-color: black; width: 100%; height: 100%;">
         <div id="biosscreen" class="screen current">
@@ -16,7 +17,13 @@
             <string id="bootmessage"></string>
         </div>
         <div id="lockscreen" class="screen">
-            <before></before>
+            <before>
+                <timeanddate>
+                    <locktime></locktime>
+                    <lockdate></lockdate>
+                    <lockday></lockday>
+                </timeanddate>
+            </before>
             <after></after>
         </div>
     </body>
