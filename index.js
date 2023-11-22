@@ -134,13 +134,15 @@ function readBaseDate(callback) {
       currentDate["year"] = currentDate.base.getFullYear().toString().padStart(4, '0');
       const newDate = data.replace(data.charAt(2), currentDate.date.charAt(0)).replace(data.charAt(3), currentDate.date.charAt(1)).replace(data.charAt(4), currentDate.month.charAt(0)).replace(data.charAt(5), currentDate.month.charAt(1)).replace(data.charAt(6), currentDate.year.charAt(0)).replace(data.charAt(7), currentDate.year.charAt(1)).replace(data.charAt(8), currentDate.year.charAt(2)).replace(data.charAt(9), currentDate.year.charAt(3))
       fs.writeFile(savefile, newDate, function (err) {
-        if (err) {
+        if (err) { 
           return console.log(err);
         }
       });
-const backupDate = data.replace(data.charAt(2), currentDate.date.charAt(0)).replace(data.charAt(3), currentDate.date.charAt(1)).replace(data.charAt(4), currentDate.month.charAt(0)).replace(data.charAt(5), currentDate.month.charAt(1)).replace(data.charAt(6), currentDate.year.charAt(0)).replace(data.charAt(7), currentDate.year.charAt(1)).replace(data.charAt(8), currentDate.year.charAt(2)).replace(data.charAt(9), currentDate.year.charAt(3))
+      var Date = currentDate.year + "-" + currentDate.month + "-" + currentDate.date;
+    } else {
+      var Date = (data.substring(6, 10) + "-" + data.substring(4, 6) + "-" + data.substring(2, 4))
     }
-    callback(null, (backupDate.substring(6, 10) + "-" + backupDate.substring(4, 6) + "-" + backupDate.substring(2, 4) + "T00:00:00Z") || (data.substring(6, 10) + "-" + data.substring(4, 6) + "-" + data.substring(2, 4) + "T00:00:00Z"));
+    callback(null, Date);
   });
 }
 

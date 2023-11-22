@@ -15,7 +15,7 @@ div#bootscreen {
 }
 
 div.screen:not(.current) {
-    display: none;
+    display: none !important;
 }
 
 div.screen.current {
