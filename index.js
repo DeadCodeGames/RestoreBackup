@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, ipcRenderer, remote, dialog } = require('el
 const path = require('node:path');
 const fs = require('fs');
 const savefile = path.join(__dirname, 'load.ini');
+const defaultSave = "00XXXXXXXX";
 
 
 const createWindow = () => {
@@ -10,6 +11,11 @@ const win = new BrowserWindow({ fullscreen: true, frame: false, contextisolation
 }
 
 app.whenReady().then(() => {
+    if (!fs.existsSync(savefile)) {
+    // File doesn't exist, create it with default values
+      fs.writeFileSync(savefile, defaultSave);
+      console.log('File created with default values.');
+  };
     createWindow();
 
     app.on('activate', () => {
@@ -108,7 +114,7 @@ ipcMain.handle('writePreviousBootState', (event, arg) => {
 })
 
 ipcMain.handle('resetLoadFile', (event, arg) => {
-  fs.writeFile(savefile, "00XXXXXXXX", function (err) {
+  fs.writeFile(savefile, defaultSave, function (err) {
     if (err) {
       return console.log(err);
     }
