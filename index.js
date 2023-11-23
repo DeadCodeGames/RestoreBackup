@@ -21,10 +21,6 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
 
-app.whenReady().then(() => {
-  createWindow()
-})
-
 function readBootState(callback) {
   fs.readFile(savefile, 'utf8', function (err, data) {
     if (err) {
@@ -126,8 +122,8 @@ function readBaseDate(callback) {
       callback(err, null);
       return;
     } else if (data.charAt(2) == "X" || data.charAt(3) == "X" || data.charAt(4) == "X" || data.charAt(5) == "X" || data.charAt(6) == "X" || data.charAt(7) == "X" || data.charAt(8) == "X" || data.charAt(9) == "X") {
-      const currentDate = {
-        "base": new Date()
+      var currentDate = {
+        "base": (new Date())
       };
       currentDate["date"] = currentDate.base.getDate().toString().padStart(2, '0');
       currentDate["month"] = (currentDate.base.getMonth() + 1).toString().padStart(2, '0');
@@ -138,11 +134,11 @@ function readBaseDate(callback) {
           return console.log(err);
         }
       });
-      var Date = currentDate.year + "-" + currentDate.month + "-" + currentDate.date;
+      var PassDate = currentDate.year + "-" + currentDate.month + "-" + currentDate.date;
     } else {
-      var Date = (data.substring(6, 10) + "-" + data.substring(4, 6) + "-" + data.substring(2, 4))
+      var PassDate = (data.substring(6, 10) + "-" + data.substring(4, 6) + "-" + data.substring(2, 4))
     }
-    callback(null, Date);
+    callback(null, PassDate);
   });
 }
 
