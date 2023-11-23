@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer, remote, dialog } = require('electron');
 const path = require('node:path');
 const fs = require('fs');
-const savefile = path.join(__dirname, 'load');
+const savefile = path.join(__dirname, 'load.ini');
 
 
 const createWindow = () => {
