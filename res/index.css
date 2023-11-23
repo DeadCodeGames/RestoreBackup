@@ -134,26 +134,43 @@ div#lockscreen.screen>before {
     align-content: center;
     justify-content: space-around;
     align-items: center;
-}
-
-div#lockscreen.screen>before>timeanddate {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    font-family: system-ui;
-    position: absolute;
-	font-size: 20px;
-    & locktime {
-        font-size: 80px;
-        font-weight: 500;
-        line-height: 80px;
+    & timeanddate {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        font-family: system-ui;
+        position: absolute;
+        font-size: 20px;
+        top: 175px;
+        & locktime {
+            font-size: 80px;
+            font-weight: 500;
+            line-height: 80px;
+        };
+        & lockdate {
+            font-size: 40px;
+            font-weight: 500;
+        };
     };
-    & lockdate {
-        font-size: 40px;
-        font-weight: 500;
-    };
-    top: 175px
+    & lockscreennotification {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 175px;
+        height: 150px;
+        width: 350px;
+        background: #222A;
+        border-color: #444;
+        border-radius: 16px;
+        border-width: 2px;
+        border-style: solid;
+        overflow: hidden;
+    }
 }
