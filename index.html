@@ -12,18 +12,17 @@
             <!-- BIOS Messages -->
         </div>
         <div id="bootscreen" class="screen">
-            <img src="res/img/yxos.svg" id="bootoslogo">
+            <img src="res/img/yxBETAos.svg" id="bootoslogo">
             <progress id="bootosloader" value="0" max="100"></progress>
             <string id="bootmessage"></string>
         </div>
         <div id="lockscreen" class="screen">
             <before>
                 <timeanddate>
-                    <locktime></locktime>
-                    <lockdate></lockdate>
-                    <lockday></lockday>
+                    <string id="locktime"></string>
+                    <string id="lockdate"></string>
+                    <string id="lockday"></string>
                 </timeanddate>
-                <lockscreennotification></lockscreennotification>
             </before>
             <after></after>
         </div>

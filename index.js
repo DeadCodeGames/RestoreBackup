@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, ipcRenderer, remote, dialog } = require('el
 const path = require('node:path');
 const fs = require('fs');
 const savefile = path.join(__dirname, 'load.ini');
-const defaultSave = "00XXXXXXXX";
+const defaultSave = "00XXXXXXXX0";
 
 
 const createWindow = () => {
@@ -10,12 +10,16 @@ const win = new BrowserWindow({ fullscreen: true, frame: false, contextisolation
     win.loadFile('index.html');
 }
 
-app.whenReady().then(() => {
-    if (!fs.existsSync(savefile)) {
+function checkLoad() {
+  if (!fs.existsSync(savefile)) {
     // File doesn't exist, create it with default values
       fs.writeFileSync(savefile, defaultSave);
       console.log('File created with default values.');
   };
+}
+
+app.whenReady().then(() => {
+  checkLoad();
     createWindow();
 
     app.on('activate', () => {
@@ -38,12 +42,16 @@ function readBootState(callback) {
 }
 function writeBootState(state) {
   fs.readFile(savefile, "utf8", function (err, data) {
-    const newData = data.replace(data.charAt(0), state)
-    fs.writeFile(savefile, newData, function (err) {
-      if (err) {
-        return console.log(err);
-      }
-    });
+    try {
+      const newData = data.substring(0, 0) + state + data.substring(0 + 1);
+      fs.writeFile(savefile, newData, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+      });
+    } catch (error) {
+      console.log(error.toString().startsWith("TypeError: Cannot read properties of undefined (reading 'replace')"));
+    }
   })
 }
 
@@ -81,7 +89,7 @@ function readPreviousBootState(callback) {
 }
 function writePreviousBootState(state) {
   fs.readFile(savefile, "utf8", function (err, data) {
-    const newData = data.replace(data.charAt(1), state)
+    const newData = data.substring(0, 1) + state + data.substring(1 + 1);
     fs.writeFile(savefile, newData, function (err) {
       if (err) {
         return console.log(err);
@@ -134,7 +142,7 @@ function readBaseDate(callback) {
       currentDate["date"] = currentDate.base.getDate().toString().padStart(2, '0');
       currentDate["month"] = (currentDate.base.getMonth() + 1).toString().padStart(2, '0');
       currentDate["year"] = currentDate.base.getFullYear().toString().padStart(4, '0');
-      const newDate = data.replace(data.charAt(2), currentDate.date.charAt(0)).replace(data.charAt(3), currentDate.date.charAt(1)).replace(data.charAt(4), currentDate.month.charAt(0)).replace(data.charAt(5), currentDate.month.charAt(1)).replace(data.charAt(6), currentDate.year.charAt(0)).replace(data.charAt(7), currentDate.year.charAt(1)).replace(data.charAt(8), currentDate.year.charAt(2)).replace(data.charAt(9), currentDate.year.charAt(3))
+      const newDate = data.substring(0, 2) + currentDate.date.toString() + currentDate.month.toString() + currentDate.year.toString() + data.substring(10)
       fs.writeFile(savefile, newDate, function (err) {
         if (err) { 
           return console.log(err);
@@ -164,4 +172,55 @@ ipcMain.handle('readBaseDate', async (event, arg) => {
     console.error('Error reading base Date: ', error);
     return null;
   }
+});
+
+ipcMain.handle('checkLoadFile', (event, arg) => {
+  checkLoad();
+});
+
+
+function readLockNotifMainState(callback) {
+  fs.readFile(savefile, 'utf8', function (err, data) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    callback(null, data.charAt(10));
+  });
+};
+
+ipcMain.handle('readLockNotifState', async (event, arg) => {
+  try {
+    const lockNotifState = await new Promise((resolve, reject) => {
+      readLockNotifMainState((err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+    return lockNotifState;
+  } catch (error) {
+    console.error('Error reading lockscren notification state:', error);
+    return null;
+  }
+});
+
+function writeLockNotifState(state) {
+  fs.readFile(savefile, "utf8", function (err, data) {
+    try {
+      fs.writeFile(savefile, data.substring(0, 10) + state + data.substring(11), function (err) {
+        if (err) {
+          return console.log(err);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  })
+};
+
+ipcMain.handle('writeLockNotifState', (event, arg) => {
+  writeLockNotifState(arg);
 });

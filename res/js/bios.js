@@ -19,6 +19,7 @@ const biosLines = [
 ];
   
 function loadBios(passBootType, quickBIOS = false) {
+    checkLoadFile();
     if (quickBIOS == true) {var quickBIOSTime = 10}
     const startBIOS = new Date();
     const biosscreen = document.getElementById('biosscreen');

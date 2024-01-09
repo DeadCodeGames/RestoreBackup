@@ -40,3 +40,21 @@ async function getBaseDate() {
     return null;
   }
 }
+
+function checkLoadFile() {
+  ipcRenderer.invoke('checkLoadFile');
+}
+
+async function readLockNotifState() {
+  try {
+    const lockNotifState = await ipcRenderer.invoke('readLockNotifState');
+    return lockNotifState;
+  } catch (error) {
+    console.error('Error reading lockscreen notification state:', error);
+    return null;
+  }
+}
+
+function writeLockNotifState(state) {
+  ipcRenderer.invoke('writeLockNotifState', state);
+}
