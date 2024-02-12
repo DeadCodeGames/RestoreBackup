@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/DeadCodeGames/RestoreBackup#readme",
   "devDependencies": {
-    "electron": "^27.0.3"
+    "electron": "^28.2.2"
   },
   "dependencies": {
     "fs": "^0.0.1-security"
