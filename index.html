@@ -13,10 +13,14 @@
             flex-wrap: wrap;
             align-content: center;
             animation: blink 10s ease 0s infinite normal none;
+			height: 100%;
         } a {
             color: inherit;
             text-decoration: none;
-        }
+        } * {
+			user-select: none;
+	-webkit-user-select: none;
+	}
         
         @keyframes blink {
 	    0% {
